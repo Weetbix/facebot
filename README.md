@@ -7,4 +7,6 @@ TODO:
 - Message on joining a private channel showing instructions 
 - Help message
 - Message showing active channel links
+- when linking, update channel description with something like "Connected with Tom" 
 - Keep links persistent (DB?)
+- Create facebook-chat-api pull request fixing dup definition in object
