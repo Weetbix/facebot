@@ -20,3 +20,4 @@ Todo:
 - when bot says chats are now connectd, it should use the name from FB as the name you enter is just a search.
 - sticker support? seems unlikely.
 - Look into alternatives to emojione library, its way overkill for translating (40mb node module folder?!)
+- New login reviews are posted to facebook on every login, even after 'accepting all future' login attemps. Gotta look into this as if it's running on a server restarting constantly it's going to be a killer.
