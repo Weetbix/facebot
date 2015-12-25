@@ -21,3 +21,6 @@ Todo:
 - sticker support? seems unlikely.
 - Look into alternatives to emojione library, its way overkill for translating (40mb node module folder?!)
 - New login reviews are posted to facebook on every login, even after 'accepting all future' login attemps. Gotta look into this as if it's running on a server restarting constantly it's going to be a killer.
+ - Save app state and use this instead, should be saved on persistent storage though
+- use selfListen option in facebook-chat-api to relay messages you send directly through facebook, but not slack. Will require some smarts.
+- disable info log messages

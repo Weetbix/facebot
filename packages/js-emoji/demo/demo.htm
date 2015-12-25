@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Emoji translation demo</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=420, user-scalable=no" />
+	<link href="emoji.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h2>Automatic mode detection</h2>
+
+<div id="rm1"></div>
+<div id="out1"></div>
+
+<hr />
+
+<h2>Manual mode selection</h2>
+
+<select id="mode" onchange="return go2();">
+<option value="unified">Unified (iOS 6+, OS X 7+, New Android)</option>
+<option value="softbank">Softbank (iOS 5)</option>
+<option value="google">Google (Old Android)</option>
+<option value="css">CSS (Modern browsers)</option>
+<option value="img">Image (fallback)</option>
+<option value="text">Text mode</option>
+</select>
+
+<div id="out2"></div>
+
+<hr />
+
+<h2>Image set selection</h2>
+
+<select id="imgset" onchange="return go4();">
+<option value="apple">Apple (iOS, OS X)</option>
+<option value="google">Google (Android, Hangouts)</option>
+<option value="twitter">Twitter</option>
+<option value="emojione">EmojiOne</option>
+</select>
+
+<div id="out5"></div>
+
+<hr />
+
+<h2>Live translation</h2>
+
+<p>Input:</p>
+<textarea id="input" style="width: 400px; height: 150px" onkeyup="go()" onchange="go()">foo :heart: bar :cinema: baz</textarea>
+
+<p>Styled output:</p>
+<div id="out3" style="width: 400px; min-height: 150px; background-color: #eee; padding: 4px;"></div>
+
+<p>HTML output:</p>
+<div id="out4" style="width: 400px; min-height: 150px; background-color: #eee; padding: 4px;"></div>
+
+<hr />
+
+<h2>jQuery Wrapper</h2>
+
+<div id="jout1" style="width: 400px; min-height: 150px; background-color: #eee; padding: 4px;">
+	<p>foo :smile: bar</p>
+	<p>woo :+1: :-1:</p>
+</div>
+
+
+<script src="../lib/emoji.js" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+<script src="../lib/jquery.emoji.js" type="text/javascript"></script>
+<script>
+
+emoji.img_path = '/emoji-data/img-apple-64/';
+emoji.sheet_path = '/emoji-data/sheet_64.png';
+emoji.use_sheet = true;
+
+emoji.init_env();
+var auto_mode = emoji.replace_mode;
+document.getElementById('rm1').innerHTML = "Detected replace mode : "+emoji.replace_mode;
+document.getElementById('out1').innerHTML = emoji.replace_colons("hello :smile: world");
+go();
+go2();
+go3();
+go4();
+
+function go(){
+
+	emoji.img_set = 'apple';
+	emoji.replace_mode = auto_mode;
+	emoji.text_mode = false;
+
+	var text = document.getElementById('input').value;
+	var out = emoji.replace_colons(text);
+
+	document.getElementById('out3').innerHTML = out;
+	document.getElementById('out4').innerText = out;
+	document.getElementById('out4').textContent = out;
+}
+
+function go2(){
+	var s = document.getElementById('mode');
+	var mode = s.options[s.selectedIndex].value;
+
+	emoji.img_set = 'apple';
+	emoji.text_mode = mode == 'text';
+
+	if (mode == 'css'){
+		emoji.replace_mode = 'img';
+		emoji.supports_css = true;
+		
+	}else if (mode == 'img'){
+		emoji.replace_mode = 'img';
+		emoji.supports_css = false;
+
+	}else{
+		emoji.replace_mode = mode;
+	}
+
+	document.getElementById('out2').innerHTML = emoji.replace_colons("hello :smile: world");
+	return false;
+}
+
+function go3(){
+	emoji.img_set = 'apple';
+	emoji.replace_mode = auto_mode;
+	emoji.text_mode = false;
+
+	$("#jout1").emoji();	
+}
+
+function go4(){
+	var s = document.getElementById('imgset');
+	var imgset = s.options[s.selectedIndex].value;
+
+	emoji.img_set = imgset;
+	emoji.replace_mode = auto_mode;
+	emoji.text_mode = false;
+
+	document.getElementById('out5').innerHTML = emoji.replace_colons("hello :smile: world :flag-ca:");
+	return false;
+}
+
+</script>
+
+</body>
+</html>

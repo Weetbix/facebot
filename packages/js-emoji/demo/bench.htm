@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body onload="test()">
+
+<div id="out">
+</div>
+
+<script src="../lib/emoji.js"></script>
+<script>
+
+var long = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum rutrum luctus.";
+long += " Maecenas hendrerit arcu quam, ultrices rhoncus lacus. Nunc ultricies nisl sit amet metus";
+long += " feugiat quis sagittis risus blandit. Nunc nec eros quam, sit amet fringilla felis. Donec";
+long += " quis odio vitae urna fermentum ultricies vel at nunc. Phasellus id risus eros. Nulla condimentum";
+long += " hendrerit feugiat. In dui metus, iaculis quis sollicitudin ac, tincidunt vel libero. Sed justo";
+long += " neque, varius gravida lobortis et, cursus in orci. Donec eget erat risus, ac lobortis nisi.";
+long += " Quisque erat sapien, aliquam et porta non, hendrerit eget dolor.";
+
+var e_unified = "\uD83C\uDFA6";
+var e_colon = ":cinema:";
+var e_replace = '<span class="emoji" style="background-image:url(emoji/1f3a6.png)">:cinema:</span>';
+
+var tests = [
+	["hello", "hello"],
+	["a"+e_unified+"b", "a"+e_replace+"b"],
+	[long, long],
+	[long+'a '+e_unified+' b', long+"a "+e_replace+" b"]
+];
+
+var tests2 = [
+	["hello", "hello"],
+	["a"+e_colon+"b", "a"+e_replace+"b"],
+	[long, long],
+	[long+'a '+e_colon+' b', long+"a "+e_replace+" b"]
+];
+
+function test(){
+
+	emoji.init_env();
+	emoji.replace_mode = 'css';
+
+	var loops = 1000;
+
+	for (var i=0; i<tests.length; i++){
+		var error = false;
+		var s = new Date().getTime();
+		for (var j=0; j<loops; j++){
+			var x = emoji.replace_unified(tests[i][0]);
+			if (x != tests[i][1]){
+				error = true;
+
+				var msg = "[Unified] Test "+i+" failed. Expected "+tests[i][1]+", got "+x;
+				log(msg);
+				break;
+			}
+		}
+		var e = new Date().getTime();
+
+		if (!error){
+			var z = Math.round(1000 / ((e-s) / loops));
+			var msg = "[Unified] Test "+i+" ran "+loops+' times in '+(e-s)+'ms ('+z+' strings/sec)';
+
+			log(msg);
+		}
+	}
+
+	log('-');
+
+	for (var i=0; i<tests2.length; i++){
+		var error = false;
+		var s = new Date().getTime();
+		for (var j=0; j<loops; j++){
+			var x = emoji.replace_colons(tests2[i][0]);
+			if (x != tests2[i][1]){
+				error = true;
+
+				var msg = "[Colons] Test "+i+" failed. Expected "+tests2[i][1]+", got "+x;
+				log(msg);
+				break;
+			}
+		}
+		var e = new Date().getTime();
+
+		if (!error){
+			var z = Math.round(1000 / ((e-s) / loops));
+			var msg = "[Colons] Test "+i+" ran "+loops+' times in '+(e-s)+'ms ('+z+' strings/sec)';
+
+			log(msg);
+		}
+	}
+
+}
+
+function log(str){
+	var out = document.getElementById('out');
+	var div = document.createElement('DIV');
+	div.textContent = str;
+	div.innerText = str;
+	out.appendChild(div);
+}
+
+</script>
+
+</body>
+</html>
+

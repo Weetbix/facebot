@@ -1,0 +1,20 @@
+language: node
+node_js:
+  - '0.10'
+git:
+  submodules: false
+before_install:
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' build/emoji-data/.gitmodules
+  - git submodule update --init --recursive
+  - npm install -g grunt-cli
+before_script:
+  - npm install
+  - npm install -g bower
+  - bower install
+  - sudo apt-get update -qq
+  - sudo apt-get install -y php5-cli
+script:
+  - grunt
+  - grunt coveralls
