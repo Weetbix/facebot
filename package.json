@@ -4,7 +4,8 @@
   "description": "Facebook messenger integration in slack",
   "main": "lib/facebot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "start_redis" : "node bin/run_redis.js",
+      "start_local" : "node bin/run_local_storage.js"
   },
   "repository": {
     "type": "git",
