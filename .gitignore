@@ -28,3 +28,4 @@ node_modules
 
 #contains API keys
 run_local.js
+saved_data.json
