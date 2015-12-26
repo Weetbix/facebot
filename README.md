@@ -24,3 +24,4 @@ Todo:
 - use selfListen option in facebook-chat-api to relay messages you send directly through facebook, but not slack. Will require some smarts.
 - Replace :simple_smile: with text smilie
 - use multipart form data to convert FB audio and video messages to slack (https://www.npmjs.com/package/form-data and https://api.slack.com/methods/files.upload)
+- dont allow linking in channels that are already linked
