@@ -1,1 +1,1 @@
-worker: npm start_local
+worker: npm start
