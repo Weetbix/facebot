@@ -3,39 +3,38 @@ var Facebot = require('../lib/facebot');
 
 if(process.env.BOT_API_KEY == null)
 	throw new Error("BOT_API_KEY not set");
-	
+if(process.env.FACEBOOK_EMAIL == null)
+    throw new Error("FACEBOOK_EMAIL not set")
+if(process.env.FACEBOOK_PASSWORD == null)
+    throw new Error("FACEBOOK_PASSWORD not set")
+    
 var token = process.env.BOT_API_KEY.trim();
 var name = process.env.BOT_NAME;
-
+    
 var facebookLogin =
 {
     email: process.env.FACEBOOK_EMAIL,
     pass: process.env.FACEBOOK_PASSWORD
 };
 
-function ldat(callback)
+function load_data(callback)
 {
     fs.readFile("saved_data.json", function(err, data){
-       if(err)
-            callback(err, null);
+       if(err) return callback(err, null);
        
-       try
-       {
+       try {
           var state = JSON.parse(data); 
           callback(null, state);    
-       }
-       catch (err)
-       {
+       } catch (err){
            callback(err, null);
        }
     });
 }
 
-function sdat(data, callback)
+function save_data(data, callback)
 {
     fs.writeFile("saved_data.json", JSON.stringify(data), function(err){
-       if(err)
-            callback(err); 
+       if(err) return callback(err); 
     });
 }
 
@@ -44,6 +43,6 @@ var facebot = new Facebot({
 	name: name,
     facebook: facebookLogin,
     authorised_username: "john"
-}, ldat, sdat);
+}, load_data, save_data);
 
 facebot.run();
