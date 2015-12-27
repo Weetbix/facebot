@@ -1,3 +1,6 @@
+// Runs the bot using the local file system to store 
+// any settings and channel links
+
 var fs = require('fs');
 var Facebot = require('../lib/facebot');
 
