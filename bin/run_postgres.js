@@ -40,11 +40,7 @@ function load_data(callback)
             }
             
             try {
-                console.log("type of is " + (typeof result.rows[0].settings_json));
-                console.log("OUT: " + result.rows[0].settings_json);
-                
-                var data = JSON.parse(result.rows[0].settings_json);
-                callback(null, data);
+                callback(null, result.rows[0].settings_json);
                 client.end();
             } catch(err){
                 callback("Found results in postgres table, but failed to parse: " + err, null);
@@ -93,7 +89,6 @@ function save_data(data, callback)
                }
                else {
                    // Successfully saved
-                   client.done();
                    callback(null);
                }
             });
