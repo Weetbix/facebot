@@ -80,6 +80,9 @@ function save_data(data, callback)
             
             client.query("UPDATE settings SET settings_json='" + JSON.stringify(data) + "' WHERE id = 1", 
             function(err, result){
+               console.log("err is: " + JSON.stringify(err));
+               console.log("result is: "+ JSON.stringify(result));
+               
                if(err) return callback(new Error("Couldn't create the settings table: " + err.message)); 
                
                if(result.rows.length == 0){
@@ -90,6 +93,7 @@ function save_data(data, callback)
                }
                else {
                    // Successfully saved
+                   client.done();
                    callback(null);
                }
             });
