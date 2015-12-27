@@ -34,7 +34,7 @@ function load_data(callback)
             return callback(new Error("Couldn't connect to Postgres db: " + err.message), null);
         }
         
-        client.query("SELECT settings_json FROM settings", function(err, result){
+        client.query("SELECT settings_json FROM settings WHERE id = 1", function(err, result){
             if(err){
                return callback(new Error("Couldn't get settings from postgres: " + err.message), null);
             }
@@ -57,7 +57,7 @@ function createTableIfNeeded(client, callback)
 {
     client.query("SELECT * FROM settings LIMIT 1", function(err, result){
         if(err || result.rows.length == 0) {
-            client.query("CREATE TABLE settings ( settings_json JSON )", 
+            client.query("CREATE TABLE settings (id INTEGER, settings_json JSON )", 
             function(err, result){
                     return callback(err);
             });
@@ -83,7 +83,7 @@ function save_data(data, callback)
                if(err) return callback(new Error("Couldn't create the settings table: " + err.message)); 
                
                if(result.rows.length == 0){
-                    client.query("INSERT INTO settings VALUES '" + JSON.stringify(data) + "'",
+                    client.query("INSERT INTO settings VALUES (1, '" + JSON.stringify(data) + "')",
                     function(err, result){
                         callback(err);
                     });
