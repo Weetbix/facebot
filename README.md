@@ -14,9 +14,8 @@ Restrictions:
 - Only supports connecting to users, not group chats. This is a feature that could be added but I have no need for this at the moment.
 
 Todo:
-- Slack shortname emoji transforms are a bit broken. Some seem to work, but other obvious ones (like `:P`) do not. 
-- command to show active channel links
 - slack->FB img support
 - use selfListen option in facebook-chat-api to relay messages you send directly through facebook, but not slack. Will require some smarts.
-- Replace :simple_smile: with text smilie
 - dont allow linking in channels that are already linked
+- add ability to unlink chats
+- add support for @pm ing bot for commands so you can do commands in non-DM chats
