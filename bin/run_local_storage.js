@@ -48,7 +48,7 @@ var facebot = new Facebot({
 	name: name,
     facebook: facebookLogin,
     authorised_username: process.env.AUTHORISED_USERNAME,
-    debug_messages: process.env.DEBUG_MESSAGES || false;
+    debug_messages: process.env.DEBUG_MESSAGES || false
 }, load_data, save_data);
 
 facebot.run();
