@@ -43,8 +43,7 @@ function load_data(callback)
                 return callback(new Error("No settings in postgres table"));
             
             try {
-                console.log("Result is: " + JSON.stringify(result.rows[0]));
-                var data = JSON.parse(result.rows[0]);
+                var data = JSON.parse(result.rows[0].settings_json);
                 callback(null, data);
                 client.end();
             } catch(err){
