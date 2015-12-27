@@ -4,7 +4,7 @@
   "description": "Facebook messenger integration in slack",
   "main": "lib/facebot.js",
   "scripts": {
-    "start": "node bin/run_redis.js"
+    "start": "node bin/run_postgres.js"
   },
   "repository": {
     "type": "git",
