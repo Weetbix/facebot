@@ -1,3 +1,11 @@
+// Runs the bot using redis to store any
+// settings and channel links.
+//
+// This requires:
+// the REDIS_URL environment variable to be set.
+// the redis node package added (Postgre is the
+// prefered storage method so redis is not included)
+
 var Facebot = require('../lib/facebot');
 var redis = require('redis');
 
@@ -53,7 +61,8 @@ var facebot = new Facebot({
 	token: token,
 	name: name,
     facebook: facebookLogin,
-    authorised_username: "john"
+    authorised_username: "john",
+    debug_messages: true
 }, load_data, save_data);
 
 facebot.run();

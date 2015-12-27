@@ -1,3 +1,6 @@
+// Runs the bot using the local file system to store 
+// any settings and channel links
+
 var fs = require('fs');
 var Facebot = require('../lib/facebot');
 
@@ -42,7 +45,8 @@ var facebot = new Facebot({
 	token: token,
 	name: name,
     facebook: facebookLogin,
-    authorised_username: "john"
+    authorised_username: "john",
+    debug_messages: true
 }, load_data, save_data);
 
 facebot.run();
