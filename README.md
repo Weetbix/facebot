@@ -16,6 +16,3 @@ Restrictions:
 Todo:
 - slack->FB img support
 - use selfListen option in facebook-chat-api to relay messages you send directly through facebook, but not slack. Will require some smarts.
-- dont allow linking in channels that are already linked
-- add ability to unlink chats
-- add support for @pm ing bot for commands so you can do commands in non-DM chats
