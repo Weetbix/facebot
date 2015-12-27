@@ -82,8 +82,12 @@ function save_data(data, callback)
                 return callback(new Error("Couldn't create the settings table: " + err.message));
             }
             
+            var updateOrInsert = "UPDATE settings SET settings_json='" + JSON.stringify(data) + "';" +
+                                 "IF found THEN RETURN;" + 
+                                 "INSERT INTO settings VALUES '" + JSON.stringify(data) + "'";
+            
             // Insert the settings
-            client.query("INSERT INTO settings VALUES '" + JSON.stringify(data) + "'", 
+            client.query(updateOrInsert, 
             function(err, result){
                 if(err)
                     return callback(new Error("Couldn't insert the settings into the table: " + err.message));
