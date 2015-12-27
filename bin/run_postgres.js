@@ -43,6 +43,7 @@ function load_data(callback)
                 return callback(new Error("No settings in postgres table"));
             
             try {
+                console.log("Result is: " + JSON.stringify(result.rows[0]));
                 var data = JSON.parse(result.rows[0]);
                 callback(null, data);
                 client.end();
@@ -78,7 +79,7 @@ function save_data(data, callback)
         createTableIfNeeded(client, function (err){
             if(err) return callback(new Error("Couldn't create the settings table: " + err.message));
             
-            client.query("UPDATE settings SET settings_json='" + JSON.stringify(data) + "'", 
+            client.query("UPDATE settings SET settings_json='" + JSON.stringify(data) + "' WHERE id = 1", 
             function(err, result){
                if(err) return callback(new Error("Couldn't create the settings table: " + err.message)); 
                
