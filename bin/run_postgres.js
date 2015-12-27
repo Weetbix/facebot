@@ -75,12 +75,10 @@ function save_data(data, callback)
             if(err) return callback(new Error("Couldn't create the settings table: " + err.message));
             
             client.query("UPDATE settings SET settings_json='" + JSON.stringify(data) + "' WHERE id = 1", 
-            function(err, result){
-               console.log("err is: " + JSON.stringify(err));
-               console.log("result is: "+ JSON.stringify(result));
-               
+            function(err, result){               
                if(err) return callback(new Error("Couldn't create the settings table: " + err.message)); 
                
+               // If the update didnt succeed, there was no existing row
                if(result.rowCount == 0){
                     client.query("INSERT INTO settings VALUES (1, '" + JSON.stringify(data) + "')",
                     function(err, result){
@@ -101,7 +99,7 @@ var facebot = new Facebot({
 	name: name,
     facebook: facebookLogin,
     authorised_username: "john",
-    debug_messages: true
+    debug_messages: process.env.DEBUG_MESSAGES || false;
 }, load_data, save_data);
 
 facebot.run();
