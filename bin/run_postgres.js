@@ -73,27 +73,25 @@ function save_data(data, callback)
     var client = new pg.Client(process.env.POSTGRES_DB_URL);
     
     client.connect(function(err){
-        if(err){
-            return callback(new Error("Couldn't connect to Postgres db: " + err.message), null);
-        }
+        if(err) return callback(new Error("Couldn't connect to Postgres db: " + err.message), null);
       
         createTableIfNeeded(client, function (err){
-            if(err){
-                return callback(new Error("Couldn't create the settings table: " + err.message));
-            }
+            if(err) return callback(new Error("Couldn't create the settings table: " + err.message));
             
-            var updateOrInsert = "UPDATE settings SET settings_json='" + JSON.stringify(data) + "';" +
-                                 "IF found THEN RETURN;" + 
-                                 "INSERT INTO settings VALUES '" + JSON.stringify(data) + "'";
-            
-            // Insert the settings
-            client.query(updateOrInsert, 
+            client.query("UPDATE settings SET settings_json='" + JSON.stringify(data) + "'", 
             function(err, result){
-                if(err)
-                    return callback(new Error("Couldn't insert the settings into the table: " + err.message));
-                
-                client.done();
-                return callback(null);
+               if(err) return callback(new Error("Couldn't create the settings table: " + err.message)); 
+               
+               if(result.rows.length == 0){
+                    client.query("INSERT INTO settings VALUES '" + JSON.stringify(data) + "'",
+                    function(err, result){
+                        callback(err);
+                    });
+               }
+               else {
+                   // Successfully saved
+                   callback(null);
+               }
             });
         });
     });
