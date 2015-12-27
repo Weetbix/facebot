@@ -35,14 +35,14 @@ function load_data(callback)
         }
         
         client.query("SELECT settings_json FROM settings WHERE id = 1", function(err, result){
-            if(err){
-               return callback(new Error("Couldn't get settings from postgres: " + err.message), null);
+            if(err || result.rows.length == 0){
+                return callback(new Error("No settings in postgres table"));
             }
             
-            if(result.rows.length == 0)
-                return callback(new Error("No settings in postgres table"));
-            
             try {
+                console.log("type of is " + (typeof result.rows[0].settings_json));
+                console.log("OUT: " + result.rows[0].settings_json);
+                
                 var data = JSON.parse(result.rows[0].settings_json);
                 callback(null, data);
                 client.end();
@@ -85,7 +85,7 @@ function save_data(data, callback)
                
                if(err) return callback(new Error("Couldn't create the settings table: " + err.message)); 
                
-               if(result.rows.length == 0){
+               if(result.rowCount == 0){
                     client.query("INSERT INTO settings VALUES (1, '" + JSON.stringify(data) + "')",
                     function(err, result){
                         callback(err);
