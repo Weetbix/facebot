@@ -12,9 +12,14 @@
   },
   "keywords": [
     "facebook",
+    "messenger",
+    "chat",
+    "fb",
+    "nodejs",
     "node",
     "slack",
-    "messenger",
+    "slackbot",
+    "bot",
     "integration"
   ],
   "author": "John Hannagan",
