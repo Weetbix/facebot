@@ -10,6 +10,8 @@ if(process.env.FACEBOOK_EMAIL == null)
     throw new Error("FACEBOOK_EMAIL not set")
 if(process.env.FACEBOOK_PASSWORD == null)
     throw new Error("FACEBOOK_PASSWORD not set")
+if(process.env.AUTHORISED_USERNAME == null)
+    throw new Error("AUTHORISED_USERNAME not set");
     
 var token = process.env.BOT_API_KEY.trim();
 var name = process.env.BOT_NAME;
@@ -45,8 +47,8 @@ var facebot = new Facebot({
 	token: token,
 	name: name,
     facebook: facebookLogin,
-    authorised_username: "john",
-    debug_messages: true
+    authorised_username: process.env.AUTHORISED_USERNAME,
+    debug_messages: process.env.DEBUG_MESSAGES || false
 }, load_data, save_data);
 
 facebot.run();

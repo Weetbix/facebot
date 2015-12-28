@@ -10,11 +10,13 @@ var pg = require('pg');
 if(process.env.BOT_API_KEY == null)
 	throw new Error("BOT_API_KEY not set");
 if(process.env.FACEBOOK_EMAIL == null)
-    throw new Error("FACEBOOK_EMAIL not set")
+    throw new Error("FACEBOOK_EMAIL not set");
 if(process.env.FACEBOOK_PASSWORD == null)
-    throw new Error("FACEBOOK_PASSWORD not set")
+    throw new Error("FACEBOOK_PASSWORD not set");
 if(process.env.POSTGRES_DB_URL == null)
-    throw new Error("POSTGRES_DB_URL not set")
+    throw new Error("POSTGRES_DB_URL not set");
+if(process.env.AUTHORISED_USERNAME == null)
+    throw new Error("AUTHORISED_USERNAME not set");
     
 var token = process.env.BOT_API_KEY.trim();
 var name = process.env.BOT_NAME;
@@ -34,17 +36,13 @@ function load_data(callback)
             return callback(new Error("Couldn't connect to Postgres db: " + err.message), null);
         }
         
-        client.query("SELECT settings_json FROM settings", function(err, result){
-            if(err){
-               return callback(new Error("Couldn't get settings from postgres: " + err.message), null);
+        client.query("SELECT settings_json FROM settings WHERE id = 1", function(err, result){
+            if(err || result.rows.length == 0){
+                return callback(new Error("No settings in postgres table"));
             }
             
-            if(result.rows.length == 0)
-                return callback(new Error("No settings in postgres table"));
-            
             try {
-                var data = JSON.parse(result.rows[0]);
-                callback(null, data);
+                callback(null, result.rows[0].settings_json);
                 client.end();
             } catch(err){
                 callback("Found results in postgres table, but failed to parse: " + err, null);
@@ -57,7 +55,7 @@ function createTableIfNeeded(client, callback)
 {
     client.query("SELECT * FROM settings LIMIT 1", function(err, result){
         if(err || result.rows.length == 0) {
-            client.query("CREATE TABLE settings ( settings_json JSON )", 
+            client.query("CREATE TABLE settings (id INTEGER, settings_json JSON )", 
             function(err, result){
                     return callback(err);
             });
@@ -73,27 +71,26 @@ function save_data(data, callback)
     var client = new pg.Client(process.env.POSTGRES_DB_URL);
     
     client.connect(function(err){
-        if(err){
-            return callback(new Error("Couldn't connect to Postgres db: " + err.message), null);
-        }
+        if(err) return callback(new Error("Couldn't connect to Postgres db: " + err.message), null);
       
         createTableIfNeeded(client, function (err){
-            if(err){
-                return callback(new Error("Couldn't create the settings table: " + err.message));
-            }
+            if(err) return callback(new Error("Couldn't create the settings table: " + err.message));
             
-            var updateOrInsert = "UPDATE settings SET settings_json='" + JSON.stringify(data) + "';" +
-                                 "IF found THEN RETURN;" + 
-                                 "INSERT INTO settings VALUES '" + JSON.stringify(data) + "'";
-            
-            // Insert the settings
-            client.query(updateOrInsert, 
-            function(err, result){
-                if(err)
-                    return callback(new Error("Couldn't insert the settings into the table: " + err.message));
-                
-                client.done();
-                return callback(null);
+            client.query("UPDATE settings SET settings_json='" + JSON.stringify(data) + "' WHERE id = 1", 
+            function(err, result){               
+               if(err) return callback(new Error("Couldn't create the settings table: " + err.message)); 
+               
+               // If the update didnt succeed, there was no existing row
+               if(result.rowCount == 0){
+                    client.query("INSERT INTO settings VALUES (1, '" + JSON.stringify(data) + "')",
+                    function(err, result){
+                        callback(err);
+                    });
+               }
+               else {
+                   // Successfully saved
+                   callback(null);
+               }
             });
         });
     });
@@ -103,8 +100,8 @@ var facebot = new Facebot({
 	token: token,
 	name: name,
     facebook: facebookLogin,
-    authorised_username: "john",
-    debug_messages: true
+    authorised_username: process.env.AUTHORISED_USERNAME,
+    debug_messages: process.env.DEBUG_MESSAGES || false
 }, load_data, save_data);
 
 facebot.run();
