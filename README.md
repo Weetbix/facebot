@@ -6,7 +6,8 @@ Facebot is a [Slack](https://slack.com/) bot for facebook messenger integration.
 - Connect slack channel to a facebook messenger channels
 - Messages appear using friends names and profile pictures
 - Supports all message types: Images, Stickers, Gifs, Thumbs & Audio messages
-- Emoji support
+- Facebook<-->Slack Emoji support
+- Channel links persist between restarts
 
 ### Restrictions
 - Only 1 facebook account can login and is authorised to use the bot. Multi-user support could be added in the future but facebook-chat-api requires logins to use plaintext email and password, so these are passed and environment variables for a single account.
