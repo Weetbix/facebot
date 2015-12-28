@@ -33,8 +33,26 @@ Variable|Description
 `DEBUG_MESSAGES`|False by default. Set this to true to receive debug direct messages from Facebot 
 
 ## Running Locally
-You can test and run Facebot locally by `node bin/run_local_storage.js`
+You can test and run Facebot locally with `node bin/run_local_storage.js`
 
-You will still need to setup the environment variables described above (without `POSTGRES_DB_URL`).
+You will still need to setup the environment variables described above (without `POSTGRES_DB_URL`). `run_local_storage.js` will use the local file system to store the login data and any channel links, this is usually not appropriate when running on a PaaS such as Heroku.
 
 ## Deploying to Heroku
+The bot can easily be deployed and run on a free Heroku instance, without making any changes.
+
+1. Fork this project
+2. Create a new Heroku App 
+3. Select "Connect to Github" as the deployment method
+4. Choose your forked repository, and the branch you want to deploy (eg `master`)
+5. Under the Resources tab, search for and add the Heroku Postgres addon
+6. Under the settings tab, add all the required environment variables listed above as *Config Variables*
+
+# Using the Bot 
+
+## Commands
+![image](https://cloud.githubusercontent.com/assets/492636/12016723/6a48ba6a-ad89-11e5-8dd5-9a734a6f6b76.png)
+
+## Linking Chats
+To link a slack channel to a Facebook friend, create a new **private channel** and invite Facebot. Then send `@facebot chat FriendNameHere` to link incoming and outgoing messages.
+
+![image](https://cloud.githubusercontent.com/assets/492636/12016755/efcb3046-ad89-11e5-9837-a8b835b07949.png)
