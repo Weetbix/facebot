@@ -38,7 +38,7 @@ You can test and run Facebot locally with `node bin/run_local_storage.js`
 
 You will still need to setup the environment variables described above (without `POSTGRES_DB_URL`). `run_local_storage.js` will use the local file system to store the login data and any channel links, this is usually not appropriate when running on a PaaS such as Heroku.
 
-## Deploying to Heroku
+## Deploying to Heroku for free
 The bot can easily be deployed and run on a free Heroku instance, without making any changes.
 
 1. Fork this project
