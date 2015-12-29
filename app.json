@@ -1,6 +1,7 @@
 {  
   "name": "Facebot",
   "description": "Slack bot for facebook messenger integration",
+  "logo": "https://raw.githubusercontent.com/Weetbix/facebot/master/logo.png",
   "keywords": [
       "node",
       "nodejs",
