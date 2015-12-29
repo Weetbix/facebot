@@ -1,0 +1,40 @@
+{  
+  "name": "Facebot",
+  "description": "Slack bot for facebook messenger integration",
+  "keywords": [
+      "node",
+      "nodejs",
+      "facebook",
+      "slack",
+      "messenger",
+      "integration"
+  ],
+  "repository": "https://github.com/Weetbix/facebot",
+  "website": "https://github.com/Weetbix/facebot",
+  "env": {
+    "BOT_API_KEY": {
+        "description": "Your slack bots API key",
+        "value": ""
+    },
+    "FACEBOOK_EMAIL": {
+        "description": "Your facebook email address",
+        "value": ""
+    },
+    "FACEBOOK_PASSWORD": {
+        "description": "Your facebook password",
+        "value": ""
+    },
+    "AUTHORISED_USERNAME": {
+        "description": "Your slack username",
+        "value": ""
+    },
+    "POSTGRES_DB_URL": {
+        "description": "Your postgres database url",
+        "value": ""
+    }
+  },
+  "addons": [
+      "heroku-postgresql:hobby-dev"
+  ]
+  
+}
