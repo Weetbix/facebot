@@ -2,7 +2,7 @@
 // settings and channel links.
 //
 // This requires:
-// the POSTGRES_DB_URL environment variable to be set.
+// the DATABASE_URL environment variable to be set.
 
 var Facebot = require('../lib/facebot');
 var pg = require('pg');
@@ -12,7 +12,7 @@ var envVars = [
     "FACEBOOK_EMAIL",
     "FACEBOOK_PASSWORD",
     "AUTHORISED_USERNAME",
-    "POSTGRES_DB_URL"
+    "DATABASE_URL"
 ];
 
 envVars.forEach(function(name){
@@ -22,7 +22,7 @@ envVars.forEach(function(name){
 
 // Load the settings and JSON from postgres
 function load_data(callback){
-    var client = new pg.Client(process.env.POSTGRES_DB_URL);
+    var client = new pg.Client(process.env.DATABASE_URL);
     
     client.connect(function(err){
         if(err){
@@ -56,7 +56,7 @@ function createTableIfNeeded(client, callback){
 }
 
 function save_data(data, callback){
-    var client = new pg.Client(process.env.POSTGRES_DB_URL);
+    var client = new pg.Client(process.env.DATABASE_URL);
     
     client.connect(function(err){
         if(err){

@@ -27,14 +27,13 @@
     "AUTHORISED_USERNAME": {
         "description": "Your slack username",
         "value": ""
-    },
-    "POSTGRES_DB_URL": {
-        "description": "Your postgres database url",
-        "value": ""
     }
   },
   "addons": [
       "heroku-postgresql:hobby-dev"
+  ],
+  "formation": [
+      { "process": "web",    "quantity": 0},
+      { "process": "worker", "quantity": 1}
   ]
-  
 }

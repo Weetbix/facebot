@@ -30,13 +30,13 @@ Variable|Description
 `AUTHORISED_USERNAME`|The slack username for the authorised user. The authorised user should be the owner of the Facebook account. Only the authorised user can interact with Facebot (link channels etc).
 `FACEBOOK_EMAIL`|Email address for the Facebook account you want to use
 `FACEBOOK_PASSWORD`|Password for the Facebook account you want to use
-`POSTGRES_DB_URL`|URL for a postgres database to save and load data from. This reduces the number of sign in messages you may receive by using existing cookies and tokens, and keeps channel links persistent through bot restarts. **If this is not set** the bot will still function, but you will lose channel links between sessions.
+`DATABASE_URL`|URL for a postgres database to save and load data from. This reduces the number of sign in messages you may receive by using existing cookies and tokens, and keeps channel links persistent through bot restarts. **If this is not set** the bot will still function, but you will lose channel links between sessions.
 `DEBUG_MESSAGES`|False by default. Set this to true to receive debug direct messages from Facebot 
 
 ## Running Locally
 You can test and run Facebot locally with `node bin/run_local_storage.js`
 
-You will still need to setup the environment variables described above (without `POSTGRES_DB_URL`). `run_local_storage.js` will use the local file system to store the login data and any channel links, this is usually not appropriate when running on a PaaS such as Heroku.
+You will still need to setup the environment variables described above (without `DATABASE_URL`). `run_local_storage.js` will use the local file system to store the login data and any channel links, this is usually not appropriate when running on a PaaS such as Heroku.
 
 ## Deploying to Heroku for free
 The bot can easily be deployed and run on a free Heroku instance, without making any changes.
