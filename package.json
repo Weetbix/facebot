@@ -1,6 +1,6 @@
 {
   "name": "facebot",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Facebook messenger integration in slack",
   "main": "lib/facebot.js",
   "scripts": {
@@ -12,9 +12,14 @@
   },
   "keywords": [
     "facebook",
+    "messenger",
+    "chat",
+    "fb",
+    "nodejs",
     "node",
     "slack",
-    "messenger",
+    "slackbot",
+    "bot",
     "integration"
   ],
   "author": "John Hannagan",
@@ -25,8 +30,8 @@
   "homepage": "https://github.com/Weetbix/facebot#readme",
   "dependencies": {
     "async": "^1.5.0",
-    "facebook-chat-api": "file:./packages/facebook-chat-api.tar.gz",
-    "js-emoji": "file:./packages/js-emoji.tar.gz",
+    "facebook-chat-api": "git+https://github.com/Schmavery/facebook-chat-api.git#73e5545",
+    "js-emoji": "git+https://github.com/iamcal/js-emoji.git",
     "pg": "^4.4.3",
     "q": "^1.4.1",
     "slackbots": "^0.5.0",
