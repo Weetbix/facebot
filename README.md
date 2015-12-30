@@ -1,4 +1,6 @@
-# Facebot
+
+
+# Facebot ![image](https://cloud.githubusercontent.com/assets/492636/12047946/c5488f22-af0e-11e5-86f4-f86c185065d8.png)
 
 Facebot is a [Slack](https://slack.com/) bot for facebook messenger integration. It allows you to link slack channels to facebook messenger, and communicate to them through slack.
 
@@ -15,13 +17,22 @@ Facebot is a [Slack](https://slack.com/) bot for facebook messenger integration.
 
 # Running the bot
 
-## Installing
-You can download the package from npm with
-`npm install facebot`
+## Run on Heroku for free
+You can immediately deploy and start using the bot by clicking the button below:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Weetbix/facebot/tree/deploy)
+
+You will need to enter your slack bot API key, facebook details and slack username, and it will begin running on a free heroku instance.
+
+## Downloading
+You can download the package from npm with:
+```
+npm install facebot
+```
 
 ## Environment Variables
 
-However you choose to run the bot, you will need to set these environment variables below:
+Facebot requires the following environment variables:
 
 Variable|Description
 ----|-----
@@ -34,19 +45,9 @@ Variable|Description
 `DEBUG_MESSAGES`|False by default. Set this to true to receive debug direct messages from Facebot 
 
 ## Running Locally
-You can test and run Facebot locally with `node bin/run_local_storage.js`
+You can test or run Facebot locally with `node bin/run_local_storage.js`
 
 You will still need to setup the environment variables described above (without `DATABASE_URL`). `run_local_storage.js` will use the local file system to store the login data and any channel links, this is usually not appropriate when running on a PaaS such as Heroku.
-
-## Deploying to Heroku for free
-The bot can easily be deployed and run on a free Heroku instance, without making any changes.
-
-1. Fork this project
-2. Create a new Heroku App 
-3. Select "Connect to Github" as the deployment method
-4. Choose your forked repository, and the branch you want to deploy (eg `master`)
-5. Under the Resources tab, search for and add the Heroku Postgres addon
-6. Under the settings tab, add all the required environment variables listed above as *Config Variables*
 
 # Using the Bot 
 
