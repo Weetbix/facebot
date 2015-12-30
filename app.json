@@ -1,0 +1,44 @@
+{  
+  "name": "Facebot",
+  "description": "Slack bot for facebook messenger integration",
+  "logo": "https://raw.githubusercontent.com/Weetbix/facebot/master/logo.png",
+  "keywords": [
+      "node",
+      "nodejs",
+      "facebook",
+      "slack",
+      "messenger",
+      "integration"
+  ],
+  "repository": "https://github.com/Weetbix/facebot",
+  "website": "https://github.com/Weetbix/facebot",
+  "env": {
+    "BOT_API_KEY": {
+        "description": "Your slack bots API key",
+        "value": ""
+    },
+    "BOT_NAME": {
+        "description": "The username of you slackbot",
+        "value": ""
+    },
+    "FACEBOOK_EMAIL": {
+        "description": "Your facebook email address",
+        "value": ""
+    },
+    "FACEBOOK_PASSWORD": {
+        "description": "Your facebook password",
+        "value": ""
+    },
+    "AUTHORISED_USERNAME": {
+        "description": "Your slack username",
+        "value": ""
+    }
+  },
+  "addons": [
+      "heroku-postgresql:hobby-dev"
+  ],
+  "formation": [
+      { "process": "web",    "quantity": 0},
+      { "process": "worker", "quantity": 1}
+  ]
+}
