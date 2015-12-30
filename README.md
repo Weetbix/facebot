@@ -52,7 +52,7 @@ You will still need to setup the environment variables described above (without 
 # Using the Bot 
 
 ## Commands
-![image](https://cloud.githubusercontent.com/assets/492636/12016723/6a48ba6a-ad89-11e5-8dd5-9a734a6f6b76.png)
+![image](https://cloud.githubusercontent.com/assets/492636/12048090/387b0914-af11-11e5-95f5-0e2c1233565a.png)
 
 ## Linking Chats
 To link a slack channel to a Facebook friend, create a new **private channel** and invite Facebot. Then send `@facebot chat FriendNameHere` to link incoming and outgoing messages.
