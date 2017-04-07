@@ -33,6 +33,7 @@
     "facebook-chat-api": "git+https://github.com/Schmavery/facebook-chat-api",
     "js-emoji": "git+https://github.com/iamcal/js-emoji.git",
     "pg": "^4.4.3",
+    "mysql":"^2.13.0",
     "q": "^1.4.1",
     "slackbots": "^0.5.0",
     "string": "^3.3.1",
