@@ -4,7 +4,14 @@
   "description": "Facebook messenger integration in slack",
   "main": "lib/facebot.js",
   "scripts": {
-    "start": "node bin/run_postgres.js"
+    "start": "node bin/run_postgres.js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --tab-width 4 --trailing-comma all --single-quote",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -33,7 +40,7 @@
     "facebook-chat-api": "git+https://github.com/Schmavery/facebook-chat-api",
     "js-emoji": "git+https://github.com/iamcal/js-emoji.git",
     "pg": "^4.4.3",
-    "mysql":"^2.13.0",
+    "mysql": "^2.13.0",
     "q": "^1.4.1",
     "slackbots": "^0.5.0",
     "string": "^3.3.1",
@@ -41,5 +48,11 @@
   },
   "engines": {
     "node": "4.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
+    "prettier": "^0.22.0"
   }
 }

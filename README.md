@@ -62,3 +62,21 @@ You will still need to setup the environment variables described above (without 
 To link a slack channel to a Facebook friend, create a new **private channel** and invite Facebot. Then send `@facebot chat FriendNameHere` to link incoming and outgoing messages.
 
 ![image](https://cloud.githubusercontent.com/assets/492636/12016755/efcb3046-ad89-11e5-9837-a8b835b07949.png)
+
+
+# Contributing
+
+Pull requests more than welcome! 
+
+Some things to keep in mind
+
+### Yarn
+This project uses yarn to lock down dependencies, so when adding another dependency remember to update the yarn.lock file
+
+### Prettier
+In order to keep the code formatting and style consistent this project uses [Prettier](https://github.com/prettier/prettier) to enforce formatting. 
+
+Prettier is installed as a dev dependency, and a pre-commit hook is setup to automatically run and prettify staged files just before commiting. 
+
+#### Running Prettier Manually
+Check out the [Prettier docs](https://github.com/prettier/prettier#usage) for instructions on how to run Prettier from the commandline, or inside your editor using a [plugin](https://github.com/prettier/prettier#editor-integration).
