@@ -9,47 +9,47 @@
 var Facebot = require('../lib/facebot');
 var redis = require('redis');
 
-var envVars = [ 
-    "BOT_API_KEY", 
-    "FACEBOOK_EMAIL",
-    "FACEBOOK_PASSWORD",
-    "AUTHORISED_USERNAME",
-    "REDIS_URL"
+var envVars = [
+    'BOT_API_KEY',
+    'FACEBOOK_EMAIL',
+    'FACEBOOK_PASSWORD',
+    'AUTHORISED_USERNAME',
+    'REDIS_URL',
 ];
 
-envVars.forEach(function(name){
-   if(process.env[name] == null)
-       throw new Error("Environment Variable " + name + " not set");
+envVars.forEach(function(name) {
+    if (process.env[name] == null)
+        throw new Error('Environment Variable ' + name + ' not set');
 });
 
 var client = redis.createClient(process.env.REDIS_URL);
-var redisKey = "facebotdata";
+var redisKey = 'facebotdata';
 
-client.on("error", function(err){
-    console.log("Redis error: " + err);
+client.on('error', function(err) {
+    console.log('Redis error: ' + err);
 });
 
-function load_data(callback){
-    if(!client){
-        return callback(new Error("Redis client not created"));
+function load_data(callback) {
+    if (!client) {
+        return callback(new Error('Redis client not created'));
     }
-    client.get(redisKey, function(err, reply){
-        if(err){
+    client.get(redisKey, function(err, reply) {
+        if (err) {
             return callback(err, null);
         }
-        
+
         try {
             var data = JSON.parse(reply);
             return callback(null, data);
-        } catch(err){
-            return callback("Got redis key value, but failed to parse: " + err);
+        } catch (err) {
+            return callback('Got redis key value, but failed to parse: ' + err);
         }
-    })
+    });
 }
 
-function save_data(data, callback){
-    if(!client){
-         return callback(new Error("Redis client not created"));
+function save_data(data, callback) {
+    if (!client) {
+        return callback(new Error('Redis client not created'));
     }
     client.set(redisKey, JSON.stringify(data), callback);
 }
@@ -61,9 +61,9 @@ var settings = {
     debug_messages: process.env.DEBUG_MESSAGES || false,
     facebook: {
         email: process.env.FACEBOOK_EMAIL,
-        pass: process.env.FACEBOOK_PASSWORD
-    }
-}
+        pass: process.env.FACEBOOK_PASSWORD,
+    },
+};
 
 var facebot = new Facebot(settings, load_data, save_data);
 
