@@ -27,7 +27,7 @@ function load_data(callback) {
     client.connect(function(err) {
         if (err) {
             return callback(
-                new Error("Couldn't connect to Postgres db: " + err.message),
+                new Error("Couldn't connect to Postgres db: " + err.message)
             );
         }
 
@@ -44,10 +44,10 @@ function load_data(callback) {
                 } catch (err) {
                     return callback(
                         'Found results in postgres table, but failed to parse: ' +
-                            err,
+                            err
                     );
                 }
-            },
+            }
         );
     });
 }
@@ -57,7 +57,7 @@ function createTableIfNeeded(client, callback) {
         if (err || result.rows.length == 0) {
             return client.query(
                 'CREATE TABLE settings (id INTEGER, settings_json JSON )',
-                callback,
+                callback
             );
         } else {
             // table exists
@@ -72,15 +72,15 @@ function save_data(data, callback) {
     client.connect(function(err) {
         if (err) {
             return callback(
-                new Error("Couldn't connect to Postgres db: " + err.message),
+                new Error("Couldn't connect to Postgres db: " + err.message)
             );
         }
         createTableIfNeeded(client, function(err) {
             if (err) {
                 return callback(
                     new Error(
-                        "Couldn't create the settings table: " + err.message,
-                    ),
+                        "Couldn't create the settings table: " + err.message
+                    )
                 );
             }
             var updateQuery = "UPDATE settings SET settings_json='" +
@@ -90,9 +90,8 @@ function save_data(data, callback) {
                 if (err) {
                     return callback(
                         new Error(
-                            "Couldn't create the settings table: " +
-                                err.message,
-                        ),
+                            "Couldn't create the settings table: " + err.message
+                        )
                     );
                 }
 

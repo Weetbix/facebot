@@ -27,7 +27,7 @@ function load_data(callback) {
     client.connect(function(err) {
         if (err) {
             return callback(
-                new Error("Couldn't connect to mysql db: " + err.message),
+                new Error("Couldn't connect to mysql db: " + err.message)
             );
         }
 
@@ -44,10 +44,10 @@ function load_data(callback) {
                 } catch (err) {
                     return callback(
                         'Found results in mysql table, but failed to parse: ' +
-                            err,
+                            err
                     );
                 }
-            },
+            }
         );
     });
 }
@@ -57,7 +57,7 @@ function createTableIfNeeded(client, callback) {
         if (err) {
             return client.query(
                 'CREATE TABLE settings (id INT, settings_json TEXT, PRIMARY KEY(id) )',
-                callback,
+                callback
             );
         } else {
             // table exists
@@ -72,15 +72,15 @@ function save_data(data, callback) {
     client.connect(function(err) {
         if (err) {
             return callback(
-                new Error("Couldn't connect to mysql db: " + err.message),
+                new Error("Couldn't connect to mysql db: " + err.message)
             );
         }
         createTableIfNeeded(client, function(err) {
             if (err) {
                 return callback(
                     new Error(
-                        "Couldn't create the settings table: " + err.message,
-                    ),
+                        "Couldn't create the settings table: " + err.message
+                    )
                 );
             }
             var insertQuery = 'INSERT INTO settings(id, settings_json) VALUES (1, ?) ON DUPLICATE KEY UPDATE settings_json=VALUES(settings_json)';
@@ -90,8 +90,8 @@ function save_data(data, callback) {
                     return callback(
                         new Error(
                             "Couldn't insert/update settings table: " +
-                                err.message,
-                        ),
+                                err.message
+                        )
                     );
                 callback();
             });
