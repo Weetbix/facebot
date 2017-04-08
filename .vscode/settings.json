@@ -2,5 +2,6 @@
 {
     "prettier.tabWidth": 4,
     "prettier.trailingComma": "es5",
-    "prettier.singleQuote": true
+    "prettier.singleQuote": true,
+    "prettier.bracketSpacing": true
 }
