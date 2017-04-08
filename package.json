@@ -1,6 +1,6 @@
 {
   "name": "facebot",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Facebook messenger integration in slack",
   "main": "lib/facebot.js",
   "scripts": {
