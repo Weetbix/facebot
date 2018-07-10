@@ -611,9 +611,9 @@ extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
 
-"facebook-chat-api@git+https://github.com/Schmavery/facebook-chat-api":
-  version "1.3.0"
-  resolved "git+https://github.com/Schmavery/facebook-chat-api#bd66d0e272679620b9815ae8864b24df3139e26b"
+facebook-chat-api@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/facebook-chat-api/-/facebook-chat-api-1.6.0.tgz#7dcde0b4e6d447cfd9ee996b2c955cce3a7e9f9f"
   dependencies:
     bluebird "^2.9.27"
     cheerio "^0.19.0"
@@ -1109,6 +1109,10 @@ lodash@^4.0.0, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
+lodash@^4.17.2:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
 log-symbols@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-1.0.2.tgz#376ff7b58ea3086a0f09facc74617eca501e1a18"
@@ -1566,11 +1570,12 @@ signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-slackbots@^0.5.0:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/slackbots/-/slackbots-0.5.3.tgz#7e98f9a02a7ab1e627c00b7f5a37d0cc7478410f"
+slackbots@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/slackbots/-/slackbots-1.1.0.tgz#e028c0914a23f87600cc51cafb3ad441a4b87bd7"
   dependencies:
     extend "^2.0.1"
+    lodash "^4.17.2"
     request "^2.56.0"
     vow "^0.4.9"
     ws "^1.0.1"

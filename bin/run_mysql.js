@@ -111,5 +111,3 @@ var settings = {
 };
 
 var facebot = new Facebot(settings, load_data, save_data);
-
-facebot.run();
