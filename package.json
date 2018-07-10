@@ -1,10 +1,17 @@
 {
   "name": "facebot",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "Facebook messenger integration in slack",
   "main": "lib/facebot.js",
   "scripts": {
-    "start": "node bin/run_postgres.js"
+    "start": "node bin/run_postgres.js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --tab-width 4 --trailing-comma es5 --single-quote",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -29,16 +36,21 @@
   },
   "homepage": "https://github.com/Weetbix/facebot#readme",
   "dependencies": {
-    "async": "^1.5.0",
-    "facebook-chat-api": "^1.0.4",
+    "facebook-chat-api": "^1.6.0",
     "js-emoji": "git+https://github.com/iamcal/js-emoji.git",
+    "mysql": "^2.13.0",
     "pg": "^4.4.3",
     "q": "^1.4.1",
-    "slackbots": "^0.5.0",
-    "string": "^3.3.1",
+    "slackbots": "^1.1.0",
     "underscore": "^1.8.3"
   },
   "engines": {
-    "node": "4.2.4"
+    "node": "8.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
+    "prettier": "^0.22.0"
   }
 }

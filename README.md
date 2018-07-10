@@ -41,8 +41,12 @@ Variable|Description
 `AUTHORISED_USERNAME`|The slack username for the authorised user. The authorised user should be the owner of the Facebook account. Only the authorised user can interact with Facebot (link channels etc).
 `FACEBOOK_EMAIL`|Email address for the Facebook account you want to use
 `FACEBOOK_PASSWORD`|Password for the Facebook account you want to use
-`DATABASE_URL`|URL for a postgres database to save and load data from. This reduces the number of sign in messages you may receive by using existing cookies and tokens, and keeps channel links persistent through bot restarts. **If this is not set** the bot will still function, but you will lose channel links between sessions.
+`DATABASE_URL`|URL for a postgres or mysql database to save and load data from, see details below for format. This reduces the number of sign in messages you may receive by using existing cookies and tokens, and keeps channel links persistent through bot restarts. **If this is not set** the bot will still function, but you will lose channel links between sessions (if not using file based storage).
 `DEBUG_MESSAGES`|False by default. Set this to true to receive debug direct messages from Facebot 
+
+### DATABASE_URL
+*  For mysql DATABASE_URL should be a json string that will be decoded.  For all possible options see: https://github.com/mysqljs/mysql#connection-options .  An example of a simple block would be: ```'{"host":"localhost","user":"me","password":"secret","database":"my_db"}'```
+*  For postgres this should be the the connection string that is given to pg.Client. 
 
 ## Running Locally
 You can test or run Facebot locally with `node bin/run_local_storage.js`
@@ -58,3 +62,21 @@ You will still need to setup the environment variables described above (without 
 To link a slack channel to a Facebook friend, create a new **private channel** and invite Facebot. Then send `@facebot chat FriendNameHere` to link incoming and outgoing messages.
 
 ![image](https://cloud.githubusercontent.com/assets/492636/12016755/efcb3046-ad89-11e5-9837-a8b835b07949.png)
+
+
+# Contributing
+
+Pull requests more than welcome! 
+
+Some things to keep in mind
+
+### Yarn
+This project uses yarn to lock down dependencies, so when adding another dependency remember to update the yarn.lock file
+
+### Prettier
+In order to keep the code formatting and style consistent this project uses [Prettier](https://github.com/prettier/prettier) to enforce formatting. 
+
+Prettier is installed as a dev dependency, and a pre-commit hook is setup to automatically run and prettify staged files just before commiting. 
+
+#### Running Prettier Manually
+Check out the [Prettier docs](https://github.com/prettier/prettier#usage) for instructions on how to run Prettier from the commandline, or inside your editor using a [plugin](https://github.com/prettier/prettier#editor-integration).

@@ -1,11 +1,11 @@
-// Runs the bot using postgres to store any
+// Runs the bot using mysql to store any
 // settings and channel links.
 //
 // This requires:
 // the DATABASE_URL environment variable to be set.
 
 var Facebot = require('../lib/facebot');
-var pg = require('pg');
+var mysql = require('mysql');
 
 var envVars = [
     'BOT_API_KEY',
@@ -20,30 +20,30 @@ envVars.forEach(function(name) {
         throw new Error('Environment Variable ' + name + ' not set');
 });
 
-// Load the settings and JSON from postgres
+// Load the settings and JSON from mysql
 function load_data(callback) {
-    var client = new pg.Client(process.env.DATABASE_URL);
+    var client = mysql.createConnection(JSON.parse(process.env.DATABASE_URL));
 
     client.connect(function(err) {
         if (err) {
             return callback(
-                new Error("Couldn't connect to Postgres db: " + err.message)
+                new Error("Couldn't connect to mysql db: " + err.message)
             );
         }
 
         client.query(
             'SELECT settings_json FROM settings WHERE id = 1',
             function(err, result) {
-                if (err || result.rows.length == 0) {
-                    return callback(new Error('No settings in postgres table'));
+                if (err || result.length == 0) {
+                    return callback(new Error('No settings in mysql table'));
                 }
 
                 try {
                     client.end();
-                    return callback(null, result.rows[0].settings_json);
+                    return callback(null, JSON.parse(result[0].settings_json));
                 } catch (err) {
                     return callback(
-                        'Found results in postgres table, but failed to parse: ' +
+                        'Found results in mysql table, but failed to parse: ' +
                             err
                     );
                 }
@@ -54,9 +54,9 @@ function load_data(callback) {
 
 function createTableIfNeeded(client, callback) {
     client.query('SELECT * FROM settings LIMIT 1', function(err, result) {
-        if (err || result.rows.length == 0) {
+        if (err) {
             return client.query(
-                'CREATE TABLE settings (id INTEGER, settings_json JSON )',
+                'CREATE TABLE settings (id INT, settings_json TEXT, PRIMARY KEY(id) )',
                 callback
             );
         } else {
@@ -67,12 +67,12 @@ function createTableIfNeeded(client, callback) {
 }
 
 function save_data(data, callback) {
-    var client = new pg.Client(process.env.DATABASE_URL);
+    var client = mysql.createConnection(JSON.parse(process.env.DATABASE_URL));
 
     client.connect(function(err) {
         if (err) {
             return callback(
-                new Error("Couldn't connect to Postgres db: " + err.message)
+                new Error("Couldn't connect to mysql db: " + err.message)
             );
         }
         createTableIfNeeded(client, function(err) {
@@ -83,30 +83,17 @@ function save_data(data, callback) {
                     )
                 );
             }
-            var updateQuery = "UPDATE settings SET settings_json='" +
-                JSON.stringify(data) +
-                "' WHERE id = 1";
-            client.query(updateQuery, function(err, result) {
-                if (err) {
+            var insertQuery = 'INSERT INTO settings(id, settings_json) VALUES (1, ?) ON DUPLICATE KEY UPDATE settings_json=VALUES(settings_json)';
+            insertQuery = mysql.format(insertQuery, [JSON.stringify(data)]);
+            client.query(insertQuery, function(err, result) {
+                if (err)
                     return callback(
                         new Error(
-                            "Couldn't create the settings table: " + err.message
+                            "Couldn't insert/update settings table: " +
+                                err.message
                         )
                     );
-                }
-
-                // If the update didnt succeed, there was no existing row
-                if (result.rowCount == 0) {
-                    var insertQuery = "INSERT INTO settings VALUES (1, '" +
-                        JSON.stringify(data) +
-                        "')";
-                    return client.query(insertQuery, function(err, result) {
-                        return callback(err);
-                    });
-                } else {
-                    // Successfully saved
-                    callback();
-                }
+                callback();
             });
         });
     });

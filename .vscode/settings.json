@@ -1,0 +1,7 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "es5",
+    "prettier.singleQuote": true,
+    "prettier.bracketSpacing": true
+}
