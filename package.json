@@ -36,7 +36,6 @@
   },
   "homepage": "https://github.com/Weetbix/facebot#readme",
   "dependencies": {
-    "async": "^1.5.0",
     "facebook-chat-api": "^1.6.0",
     "js-emoji": "git+https://github.com/iamcal/js-emoji.git",
     "mysql": "^2.13.0",
